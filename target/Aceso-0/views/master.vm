@@ -1,0 +1,11 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="resources/download/css/test.css">
+</head>
+<body>
+<h1>Welcome</h1>
+#parse("/views/fragments/header.vm")
+$screen_content
+#parse("/views/fragments/footer.vm")
+</body>
+</html>
