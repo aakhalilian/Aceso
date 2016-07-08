@@ -52,20 +52,20 @@ public class TestPage {
 		user.setId(0);
 		user.setName("myName");
 		model.addAttribute("errors", propService.get("app.log"));
-		// try {
-		// xmlAssist.toXML(user, "xml/my2.xml");
-		// } catch (IOException e) {
-		// model.addAttribute("errors", "IOException a");
-		// }
-		try {
-			mongoOperations=mongoService.mongoTemplate();
-			Account acc=new Account(5);
-			acc.setBalance(10.0);
-			mongoOperations.save(acc);
-			model.addAttribute("errors", "Done!");
-		} catch (Exception e) {
-			model.addAttribute("errors", "DBerror");
-		}
+		 try {
+		 xmlAssist.toXML(user, propService.get("app.xml"));
+		 } catch (IOException e) {
+		 model.addAttribute("errors", "IOException a");
+		 }
+//		try {
+//			mongoOperations=mongoService.mongoTemplate();
+//			Account acc=new Account(5);
+//			acc.setBalance(10.0);
+//			mongoOperations.save(acc);
+//			model.addAttribute("errors", "Done!");
+//		} catch (Exception e) {
+//			model.addAttribute("errors", "DBerror");
+//		}
 		
 		teller.assignAccount(user, new Account(1));
 		teller.assignAccount(user, new Account(3));

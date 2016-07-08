@@ -6,7 +6,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
 @Configuration
-@PropertySource("app.properties")
+@PropertySource("WEB-INF/app.properties")
 
 public class PropService {
 	@Autowired

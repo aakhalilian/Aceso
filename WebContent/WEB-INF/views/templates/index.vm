@@ -1,0 +1,6 @@
+<h2>List</h2>
+#foreach($acc in $accountList)
+<small>$acc.getNumber() - $acc.getBalance()</small>
+#end
+<br><br>
+$errors
