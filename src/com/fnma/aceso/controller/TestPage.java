@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.fnma.aceso.model.Account;
 import com.fnma.aceso.model.Teller;
 import com.fnma.aceso.model.User;
+import com.fnma.aceso.resource.service.ResourceFile;
 import com.fnma.aceso.utilities.LogServiece;
 import com.fnma.aceso.utilities.MongoService;
 import com.fnma.aceso.utilities.PropService;
@@ -37,7 +38,7 @@ public class TestPage {
 	@Autowired
 	private LogServiece logServiece;
 	@Autowired
-	private XMLService xmlAssist;
+	private XMLService xmlService;
 	@Autowired
 	private MongoService mongoService;
 	private MongoOperations mongoOperations;
@@ -46,7 +47,16 @@ public class TestPage {
 	public String welcomePage(Model model) {
 		Logger log = logServiece.getLog(propService.get("app.log"), this.getClass());
 		log.info("hello");
-
+		
+		ResourceFile file=new ResourceFile();
+		file.setLocation("some/location/aa");
+		file.setType("js");
+		try {
+			xmlService.toXML(file, propService.get("app.xml"));
+		} catch (IOException e) {
+			model.addAttribute("errors", "xml error");
+		}
+		
 		
 //		try {
 //			mongoOperations=mongoService.mongoTemplate();

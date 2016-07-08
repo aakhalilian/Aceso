@@ -19,6 +19,7 @@
                         <bind-xml name="account"/>
                 </field>
         </class>
+        
         <class name="com.fnma.aceso.model.Account">
                 <field name="number"
                        type="integer">
@@ -28,6 +29,25 @@
                 <field name="balance"
                        type="double">
                         <bind-xml name="acc-balance" node="element"/>
+                </field>
+        </class>
+        
+        <class name="com.fnma.aceso.resource.service.ResourceFile">
+                <map-to xml="resource"/>
+        
+                <field name="type" required="true"
+                       type="string">
+                        <bind-xml name="type" node="attribute"/>
+                </field>
+
+                <field name="location" required="true"
+                       type="string">
+                        <bind-xml name="location" node="text"/>
+                </field>
+
+                <field name="lastCheck" required="false"
+                       type="long">
+                        <bind-xml name="last-check" node="attribute"/>
                 </field>
         </class>
 	
