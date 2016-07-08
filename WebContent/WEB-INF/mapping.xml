@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping>
+	 <class name="com.fnma.aceso.model.User">
+                <map-to xml="user"/>
+        
+                <field name="id"
+                       type="integer">
+                        <bind-xml name="refId" node="attribute"/>
+                </field>
+
+                <field name="name"
+                       type="string">
+                        <bind-xml name="user-name" node="attribute"/>
+                </field>
+
+                <field name="accounts"
+                       type="com.fnma.aceso.model.Account"
+                          collection="arraylist">
+                        <bind-xml name="account"/>
+                </field>
+        </class>
+        <class name="com.fnma.aceso.model.Account">
+                <field name="number"
+                       type="integer">
+                        <bind-xml name="account-no" node="attribute"/>
+                </field>
+
+                <field name="balance"
+                       type="double">
+                        <bind-xml name="acc-balance" node="element"/>
+                </field>
+        </class>
+	
+</mapping>

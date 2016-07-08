@@ -37,6 +37,8 @@
 		<property name="marshaller" ref="castorMarshaller" />
 		<property name="unmarshaller" ref="castorMarshaller" />
 	</bean>
-	<bean id="castorMarshaller" class="org.springframework.oxm.castor.CastorMarshaller" />
+	<bean id="castorMarshaller" class="org.springframework.oxm.castor.CastorMarshaller" >
+		<property name="mappingLocation" value="/WEB-INF/mapping.xml" />
+	</bean>
  
 </beans>

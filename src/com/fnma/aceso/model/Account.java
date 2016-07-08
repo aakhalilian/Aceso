@@ -10,6 +10,7 @@ public class Account {
 	@Id
 	private int number;
 	
+	public Account (){}
 	public Account (int number){
 		this.setNumber(number);
 		this.setBalance(0);

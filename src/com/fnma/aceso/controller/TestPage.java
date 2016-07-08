@@ -2,6 +2,8 @@ package com.fnma.aceso.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 
@@ -18,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.fnma.aceso.model.Account;
 import com.fnma.aceso.model.Teller;
 import com.fnma.aceso.model.User;
-import com.fnma.aceso.utilities.LessService;
 import com.fnma.aceso.utilities.LogServiece;
 import com.fnma.aceso.utilities.MongoService;
 import com.fnma.aceso.utilities.PropService;
@@ -38,8 +39,6 @@ public class TestPage {
 	@Autowired
 	private XMLService xmlAssist;
 	@Autowired
-	private LessService lessService;
-	@Autowired
 	private MongoService mongoService;
 	private MongoOperations mongoOperations;
 
@@ -48,15 +47,7 @@ public class TestPage {
 		Logger log = logServiece.getLog(propService.get("app.log"), this.getClass());
 		log.info("hello");
 
-		User user = new User();
-		user.setId(0);
-		user.setName("myName");
-		model.addAttribute("errors", propService.get("app.log"));
-		 try {
-		 xmlAssist.toXML(user, propService.get("app.xml"));
-		 } catch (IOException e) {
-		 model.addAttribute("errors", "IOException a");
-		 }
+		
 //		try {
 //			mongoOperations=mongoService.mongoTemplate();
 //			Account acc=new Account(5);
@@ -67,9 +58,6 @@ public class TestPage {
 //			model.addAttribute("errors", "DBerror");
 //		}
 		
-		teller.assignAccount(user, new Account(1));
-		teller.assignAccount(user, new Account(3));
-		model.addAttribute("accountList", teller.listFor(user));
 		return "index";
 	}
 }
