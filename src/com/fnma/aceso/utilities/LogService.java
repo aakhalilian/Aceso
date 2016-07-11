@@ -5,17 +5,20 @@ import org.apache.log4j.FileAppender;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LogServiece {
+public class LogService {
 	private Logger log;
-
+	@Autowired
+	private Properties properties;
+	
 	public void cleanSet() {
 		Logger.getRootLogger().getLoggerRepository().resetConfiguration();
 	}
 
-	public Logger getLog(String filePath, Class sourceClass) {
+	public Logger getLog(String logFile, Class sourceClass) {
 		setLog(Logger.getLogger(sourceClass.getName()));
 		ConsoleAppender console = new ConsoleAppender(); // create appender
 
@@ -24,7 +27,9 @@ public class LogServiece {
 		console.setThreshold(Level.FATAL);
 		console.activateOptions();
 		log.addAppender(console);
-
+		
+		String filePath=properties.get(logFile);
+		
 		FileAppender fa = new FileAppender();
 		fa.setName("FileLogger");
 		fa.setFile(filePath);

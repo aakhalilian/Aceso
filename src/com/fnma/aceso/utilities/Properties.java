@@ -8,7 +8,7 @@ import org.springframework.core.env.Environment;
 @Configuration
 @PropertySource("WEB-INF/app.properties")
 
-public class PropService {
+public class Properties {
 	@Autowired
 	private Environment env;
 

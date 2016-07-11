@@ -13,7 +13,7 @@ import com.mongodb.MongoClient;
 @Configuration
 public class MongoService {
 	@Autowired
-	private PropService propService;
+	private Properties propService;
 
 	public @Bean MongoDbFactory mongoDbFactory() throws Exception {
 		MongoClient mongoClient = new MongoClient(propService.get("db.host"),

@@ -2,11 +2,24 @@ package com.fnma.aceso.resource.service;
 
 import java.util.ArrayList;
 
-public class WebResource {
+public class WebResource {	
 	private String context;
 	private String key;
-	private ArrayList<ResourceFile> resources;
+	private ArrayList<ResourceFile> resources=new ArrayList<ResourceFile>();
 
+	public void addResource(ResourceFile resource){
+		if(!resources.contains(resource)){
+			resources.add(resource);
+		}
+	}
+	
+	public String getDispatchers(){
+		String Dispatchers="";
+		for(ResourceFile file : resources){
+			Dispatchers+=file.getDispatcher();
+		}
+		return Dispatchers;
+	}
 	public String getContext() {
 		return context;
 	}

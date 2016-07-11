@@ -1,12 +1,13 @@
 com\fnma\aceso\model\User.class
-com\fnma\aceso\utilities\LogServiece.class
-com\fnma\aceso\utilities\MongoService.class
+com\fnma\aceso\utilities\Properties.class
 com\fnma\aceso\utilities\XMLService.class
 com\fnma\aceso\resource\service\WebResourceService.class
+com\fnma\aceso\utilities\LogService.class
 com\fnma\aceso\resource\service\ResourceFile.class
 com\fnma\aceso\resource\service\WebResource.class
-com\fnma\aceso\utilities\PropService.class
+com\fnma\aceso\utilities\ServiceAccessor.class
+com\fnma\aceso\utilities\MongoService.class
 com\fnma\aceso\model\Account.class
 com\fnma\aceso\resource\service\LessService.class
 com\fnma\aceso\model\Teller.class
-com\fnma\aceso\controller\TestPage.class
+com\fnma\aceso\controller\MainControl.class

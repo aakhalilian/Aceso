@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-resource-service>
+	<web-resource key="main-resources" context="master">
+		<resource type="js" location="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" last-check="0" />
+		<resource type="css" location="css/index.css" last-check="0" />
+		<resource type="less" location="less/bootstrap.less" last-check="0" />
+	</web-resource>
+	<web-resource key="2ndr" context="">
+		<resource type="js" location="some/location/aa" last-check="0" />
+		<resource type="css" location="some/location/csss" last-check="0" />
+	</web-resource>
+</web-resource-service>
