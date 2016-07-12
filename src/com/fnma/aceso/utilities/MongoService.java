@@ -1,6 +1,5 @@
 package com.fnma.aceso.utilities;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.authentication.UserCredentials;
@@ -12,15 +11,15 @@ import com.mongodb.MongoClient;
 
 @Configuration
 public class MongoService {
-	@Autowired
-	private Properties propService;
-
+private Properties properties;
+	
 	public @Bean MongoDbFactory mongoDbFactory() throws Exception {
-		MongoClient mongoClient = new MongoClient(propService.get("db.host"),
-				Integer.parseInt(propService.get("db.port")));
-		UserCredentials credential = new UserCredentials(propService.get("db.username"),
-				propService.get("db.password"));
-		return new SimpleMongoDbFactory(mongoClient, propService.get("db.name"), credential);
+		properties= ServiceAccessor.getProperties();
+		MongoClient mongoClient = new MongoClient(properties.get("db.host"),
+				Integer.parseInt(properties.get("db.port")));
+		UserCredentials credential = new UserCredentials(properties.get("db.username"),
+				properties.get("db.password"));
+		return new SimpleMongoDbFactory(mongoClient, properties.get("db.name"), credential);
 	}
 
 	public @Bean MongoTemplate mongoTemplate() throws Exception {

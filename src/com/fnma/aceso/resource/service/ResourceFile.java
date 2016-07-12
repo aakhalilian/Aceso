@@ -18,6 +18,7 @@ public class ResourceFile {
 	private String type;
 	private String location;
 	private long lastCheck;
+	private static final String RESOURCE_URL="/resources/download/";
 
 	public String getType() {
 		return type;
@@ -70,18 +71,22 @@ public class ResourceFile {
 		LogService logService=ServiceAccessor.getLogServiece();
 		ServletContext servletContext=ServiceAccessor.getServletContext();
 		Logger log = logService.getLog("app.log", this.getClass());
-		log.info(servletContext.getRealPath("/WEB-INF/assets/"+location));
 		File file= new File(servletContext.getRealPath("/WEB-INF/assets/"+location));
 		if(file.exists()){
-			log.info("file found");
-			try {
-				LessService lessService=new LessService();
-				lessService.compile(file);
-				return "<link rel='stylesheet' type='text/css' href='resources/download/"+location+".css'>";
-			} catch (Less4jException e) {
-				return "";
-			} catch (IOException e) {
-				return "";
+			if(file.lastModified()>lastCheck){
+				log.info("find "+file.getAbsolutePath()+" to compile");
+				try {
+					LessService lessService=new LessService();
+					lessService.compile(file);
+					lastCheck=file.lastModified();
+					return "<link rel='stylesheet' type='text/css' href='"+generateUrl(location)+".css'>";
+				} catch (Less4jException e) {
+					log.error("error in compile: "+ e.getMessage());
+					return "";
+				} catch (IOException e) {
+					log.error("error in save: "+ e.getMessage());
+					return "";
+				}
 			}
 		}
 		return "";
@@ -91,7 +96,7 @@ public class ResourceFile {
 		try {
 			URI uri = new URI(location);
 			if(uri.getScheme()==null)
-				return "<link rel='stylesheet' type='text/css' href='resources/download/"+location+"'>";
+				return "<link rel='stylesheet' type='text/css' href='"+generateUrl(location)+"'>";
 			else if(uri.getScheme().equals("http") || uri.getScheme().equals("https") || uri.getScheme().equals("ftp"))
 				return "<link rel='stylesheet' type='text/css' href='"+location+"'>";
 			else return "";
@@ -107,7 +112,7 @@ public class ResourceFile {
 		try {
 			URI uri = new URI(location);
 			if(uri.getScheme()==null)
-				return "<script type='text/javascript' src='resources/download/"+location+"'></script>";
+				return "<script type='text/javascript' src='"+generateUrl(location)+"'></script>";
 			else if(uri.getScheme().equals("http") || uri.getScheme().equals("https") || uri.getScheme().equals("ftp"))
 				return "<script type='text/javascript' src='"+location+"'></script>";
 			else
@@ -125,6 +130,10 @@ public class ResourceFile {
 
 	public void setLastCheck(long lastCheck) {
 		this.lastCheck = lastCheck;
+	}
+	private String generateUrl(String location){
+		location=RESOURCE_URL+location;
+		return location;
 	}
 
 }

@@ -11,9 +11,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class LogService {
 	private Logger log;
-	@Autowired
 	private Properties properties;
-	
+		
 	public void cleanSet() {
 		Logger.getRootLogger().getLoggerRepository().resetConfiguration();
 	}
@@ -28,6 +27,7 @@ public class LogService {
 		console.activateOptions();
 		log.addAppender(console);
 		
+		properties=ServiceAccessor.getProperties();
 		String filePath=properties.get(logFile);
 		
 		FileAppender fa = new FileAppender();
