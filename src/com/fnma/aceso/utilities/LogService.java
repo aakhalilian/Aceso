@@ -10,14 +10,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class LogService {
-	private Logger log;
+	private static Logger log;
 	private Properties properties;
 		
 	public void cleanSet() {
 		Logger.getRootLogger().getLoggerRepository().resetConfiguration();
 	}
 
-	public Logger getLog(String logFile, Class sourceClass) {
+	public Logger makeLog(String logFile, Class sourceClass) {
 		setLog(Logger.getLogger(sourceClass.getName()));
 		ConsoleAppender console = new ConsoleAppender(); // create appender
 
@@ -43,6 +43,9 @@ public class LogService {
 
 	public void setLog(Logger log) {
 		this.log = log;
+	}
+	public Logger getLog() {
+		return log;
 	}
 
 }

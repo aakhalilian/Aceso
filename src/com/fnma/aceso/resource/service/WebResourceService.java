@@ -38,7 +38,7 @@ public class WebResourceService {
 
 	public ArrayList<WebResource> getWebResourceFor(String context) {
 		logService=ServiceAccessor.getLogServiece();
-		Logger log = logService.getLog("app.log", this.getClass());
+		Logger log = logService.getLog();
 		ArrayList<WebResource> resourcesForContext = new ArrayList<WebResource>();
 		for (WebResource webResource : webResources) {
 			if (webResource.getContext().equals(context))

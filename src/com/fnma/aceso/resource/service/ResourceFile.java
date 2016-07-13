@@ -6,6 +6,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
@@ -70,15 +71,18 @@ public class ResourceFile {
 	private String getCompiledLess() {
 		LogService logService=ServiceAccessor.getLogServiece();
 		ServletContext servletContext=ServiceAccessor.getServletContext();
-		Logger log = logService.getLog("app.log", this.getClass());
+		Logger log = logService.getLog();
 		File file= new File(servletContext.getRealPath("/WEB-INF/assets/"+location));
+		File fakeCss= new File(file.getAbsolutePath()+".css");
 		if(file.exists()){
-			if(file.lastModified()>lastCheck){
+			if(file.lastModified()>lastCheck || !fakeCss.exists() ){
 				log.info("find "+file.getAbsolutePath()+" to compile");
 				try {
 					LessService lessService=new LessService();
 					lessService.compile(file);
 					lastCheck=file.lastModified();
+					WebResourceService resourceService=ServiceAccessor.getResourceService();
+					ServiceAccessor.setResourceServiceToFile(resourceService);
 					return "<link rel='stylesheet' type='text/css' href='"+generateUrl(location)+".css'>";
 				} catch (Less4jException e) {
 					log.error("error in compile: "+ e.getMessage());
@@ -88,6 +92,7 @@ public class ResourceFile {
 					return "";
 				}
 			}
+			return "<link rel='stylesheet' type='text/css' href='"+generateUrl(location)+".css'>";
 		}
 		return "";
 	}
@@ -132,7 +137,8 @@ public class ResourceFile {
 		this.lastCheck = lastCheck;
 	}
 	private String generateUrl(String location){
-		location=RESOURCE_URL+location;
+		String baseURL=ServiceAccessor.getBaseUrl();		
+		location=baseURL+RESOURCE_URL+location;
 		return location;
 	}
 

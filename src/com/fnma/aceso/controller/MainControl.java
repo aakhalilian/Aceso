@@ -3,6 +3,7 @@ package com.fnma.aceso.controller;
 import java.io.IOException;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,23 +26,29 @@ import com.fnma.aceso.utilities.XMLService;
 public class MainControl {
 	
 	private final Properties properties;
-	private final ServletContext servletContext;
 	private final LogService logService;
 	private final XMLService xmlService;
 	private final MongoService mongoService;
 	private WebResourceService resourceService;
 	private MongoOperations mongoOperations;
+	private ServletContext servletContext;
+	private HttpServletRequest request;
+
 	
 	@Autowired
 	public MainControl(Properties properties,ServletContext servletContext,LogService logService,
-			XMLService xmlService,MongoService mongoService) {
+			XMLService xmlService,MongoService mongoService, HttpServletRequest request) {
 		this.properties=properties;
 		ServiceAccessor.setProperties(properties);
 
 		this.servletContext=servletContext;
 		ServiceAccessor.setServletContext(servletContext);
+		
+		this.request=request;
+		ServiceAccessor.setServletRequest(request);
 
 		this.logService=logService;
+		logService.makeLog("app.log", this.getClass());
 		ServiceAccessor.setLogServiece(logService);
 
 		this.xmlService=xmlService;
@@ -57,20 +64,35 @@ public class MainControl {
 		
 	}
 	
-	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/1" }, method = RequestMethod.GET)
 	public String welcomePage(Model model) {
-		Logger log = logService.getLog("app.log", this.getClass());
+		Logger log = logService.getLog();
 		log.info("GET request for / is received.");
+		
+		String name= request.getParameter("name");
 		
 		model.addAttribute("resourceService", resourceService);
 			
-		model.addAttribute("message", "hi all");
+		model.addAttribute("message", "hi "+name);
+		
+		return "index";
+	}
+	
+	@RequestMapping(value = { "/3" }, method = RequestMethod.GET)
+	public String wilcommaPage(Model model) {
+		Logger log = logService.getLog();
+		log.info("GET request for / is received.");
+		
+		String name= request.getParameter("name");
+		model.addAttribute("resourceService", resourceService);
+			
+		model.addAttribute("message", "holla "+name);
 		
 		return "index";
 	}
 	
 	private MongoOperations connectMongo(){
-		Logger log = logService.getLog("app.log", this.getClass());
+		Logger log = logService.getLog();
 		MongoOperations newMongoOperations=null;
 		try {
 			log.info("Trying to initialize MongoDB connection...");
