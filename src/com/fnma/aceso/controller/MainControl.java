@@ -25,19 +25,21 @@ import com.fnma.aceso.utilities.XMLService;
 @Controller
 public class MainControl {
 	
-	private final Properties properties;
-	private final LogService logService;
-	private final XMLService xmlService;
-	private final MongoService mongoService;
-	private WebResourceService resourceService;
-	private MongoOperations mongoOperations;
-	private ServletContext servletContext;
-	private HttpServletRequest request;
+	protected final Properties properties;
+	protected final LogService logService;
+	protected final XMLService xmlService;
+	protected final MongoService mongoService;
+	protected WebResourceService resourceService;
+	protected MongoOperations mongoOperations;
+	protected ServletContext servletContext;
+	protected HttpServletRequest request;
+	protected HttpServletRequest response;
 
 	
 	@Autowired
 	public MainControl(Properties properties,ServletContext servletContext,LogService logService,
-			XMLService xmlService,MongoService mongoService, HttpServletRequest request) {
+			XMLService xmlService,MongoService mongoService, HttpServletRequest request,
+			HttpServletRequest response) {
 		this.properties=properties;
 		ServiceAccessor.setProperties(properties);
 
@@ -46,6 +48,9 @@ public class MainControl {
 		
 		this.request=request;
 		ServiceAccessor.setServletRequest(request);
+		
+		this.response=response;
+		ServiceAccessor.setServletResponse(response);
 
 		this.logService=logService;
 		logService.makeLog("app.log", this.getClass());
@@ -59,50 +64,8 @@ public class MainControl {
 
 		this.resourceService=ServiceAccessor.getResourceServiceFromFile();
 		
-		this.mongoOperations=connectMongo();
-		ServiceAccessor.setMongoOperations(mongoOperations);
+		this.mongoOperations=ServiceAccessor.initMongoOperations();
 		
 	}
 	
-	@RequestMapping(value = { "/1" }, method = RequestMethod.GET)
-	public String welcomePage(Model model) {
-		Logger log = logService.getLog();
-		log.info("GET request for / is received.");
-		
-		String name= request.getParameter("name");
-		
-		model.addAttribute("resourceService", resourceService);
-			
-		model.addAttribute("message", "hi "+name);
-		
-		return "index";
-	}
-	
-	@RequestMapping(value = { "/3" }, method = RequestMethod.GET)
-	public String wilcommaPage(Model model) {
-		Logger log = logService.getLog();
-		log.info("GET request for / is received.");
-		
-		String name= request.getParameter("name");
-		model.addAttribute("resourceService", resourceService);
-			
-		model.addAttribute("message", "holla "+name);
-		
-		return "index";
-	}
-	
-	private MongoOperations connectMongo(){
-		Logger log = logService.getLog();
-		MongoOperations newMongoOperations=null;
-		try {
-			log.info("Trying to initialize MongoDB connection...");
-			newMongoOperations=mongoService.mongoTemplate();
-			log.info("MongoDB is connected.");
-		} catch (Exception e) {
-			e.printStackTrace();
-			log.info("MongoDB connection error.");
-			log.error(e.getMessage());
-		}
-		return newMongoOperations;
-	}
 }

@@ -11,15 +11,16 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import com.fnma.aceso.resource.service.WebResourceService;
 
 public class ServiceAccessor {
-	private static Properties properties;
-	private static ServletContext servletContext;
-	private static HttpServletRequest servletRequest;
-	private static LogService logService;
-	private static XMLService xmlService;
-	private static MongoService mongoService;
-	private static MongoOperations mongoOperations;
-	private static WebResourceService resourceService;
-	private static final String RESOURCE_XML = "/WEB-INF/resources.xml";
+	protected static Properties properties;
+	protected static ServletContext servletContext;
+	protected static HttpServletRequest servletRequest;
+	protected static HttpServletRequest servletResponse;
+	protected static LogService logService;
+	protected static XMLService xmlService;
+	protected static MongoService mongoService;
+	protected static MongoOperations mongoOperations;
+	protected static WebResourceService resourceService;
+	protected static final String RESOURCE_XML = "/WEB-INF/resources.xml";
 
 	public static String getBaseUrl() {
 		String baseUrl = null;
@@ -114,6 +115,24 @@ public class ServiceAccessor {
 	public static MongoOperations getMongoOperations() {
 		return mongoOperations;
 	}
+	
+	public static MongoOperations initMongoOperations() {
+		Logger log = logService.getLog();
+		MongoOperations newMongoOperations=null;
+		try {
+			log.info("Trying to initialize MongoDB connection...");
+			newMongoOperations=mongoService.mongoTemplate();
+			log.info("MongoDB is connected.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.info("MongoDB connection error.");
+			log.error(e.getMessage());
+		}
+		ServiceAccessor.mongoOperations = newMongoOperations;
+		return newMongoOperations;
+	}
+	
+	
 
 	public static void setMongoOperations(MongoOperations mongoOperations) {
 		ServiceAccessor.mongoOperations = mongoOperations;
@@ -125,5 +144,13 @@ public class ServiceAccessor {
 
 	public static void setServletRequest(HttpServletRequest servletRequest) {
 		ServiceAccessor.servletRequest = servletRequest;
+	}
+
+	public static HttpServletRequest getServletResponse() {
+		return servletResponse;
+	}
+
+	public static void setServletResponse(HttpServletRequest servletResponse) {
+		ServiceAccessor.servletResponse = servletResponse;
 	}
 }
