@@ -4,6 +4,7 @@ com\fnma\aceso\utilities\XMLService.class
 com\fnma\aceso\resource\service\WebResourceService.class
 com\fnma\aceso\utilities\LogService.class
 com\fnma\aceso\resource\service\ResourceFile.class
+com\fnma\aceso\controller\SecondControl.class
 com\fnma\aceso\resource\service\WebResource.class
 com\fnma\aceso\utilities\ServiceAccessor.class
 com\fnma\aceso\utilities\MongoService.class
