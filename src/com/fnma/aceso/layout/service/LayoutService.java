@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class LayoutService {
 	private ArrayList<String> location = new ArrayList<String>();
 	private ArrayList<WebLink> links=new ArrayList<WebLink>();
+	private ArrayList<WebPanel> panels=new ArrayList<WebPanel>();
 
 	public void in(String address) {
 		location.add(address);
