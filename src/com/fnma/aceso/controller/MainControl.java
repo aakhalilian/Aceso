@@ -14,7 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-
+import com.fnma.aceso.layout.service.LayoutService;
 import com.fnma.aceso.resource.service.WebResourceService;
 import com.fnma.aceso.utilities.LogService;
 import com.fnma.aceso.utilities.MongoService;
@@ -22,7 +22,6 @@ import com.fnma.aceso.utilities.Properties;
 import com.fnma.aceso.utilities.ServiceAccessor;
 import com.fnma.aceso.utilities.XMLService;
 
-@Controller
 public class MainControl {
 	
 	protected final Properties properties;
@@ -31,6 +30,7 @@ public class MainControl {
 	protected final MongoService mongoService;
 	protected WebResourceService resourceService;
 	protected MongoOperations mongoOperations;
+	protected LayoutService layoutService;
 	protected ServletContext servletContext;
 	protected HttpServletRequest request;
 	protected HttpServletRequest response;
@@ -38,8 +38,8 @@ public class MainControl {
 	
 	@Autowired
 	public MainControl(Properties properties,ServletContext servletContext,LogService logService,
-			XMLService xmlService,MongoService mongoService, HttpServletRequest request,
-			HttpServletRequest response) {
+			XMLService xmlService,MongoService mongoService,LayoutService layoutService, 
+			HttpServletRequest request ,HttpServletRequest response) {
 		this.properties=properties;
 		ServiceAccessor.setProperties(properties);
 
@@ -63,6 +63,8 @@ public class MainControl {
 		ServiceAccessor.setMongoService(mongoService);
 
 		this.resourceService=ServiceAccessor.getResourceServiceFromFile();
+		this.layoutService=layoutService;
+		this.layoutService.loadMap();
 		
 		this.mongoOperations=ServiceAccessor.initMongoOperations();
 		

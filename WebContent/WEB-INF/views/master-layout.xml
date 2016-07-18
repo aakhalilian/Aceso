@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-resource-service>
+	<web-link location="spmeloc" order="525" blank="false">
+		<link>google.com</link>
+		<title>link to google</title>
+		<label>Google</label>
+	</web-link>
+	<web-link location="spmennnnloc" order="120" blank="false">
+		<link>gooooooogle.com</link>
+		<title>link to gonnnnogle</title>
+		<label>Gonogle</label>
+	</web-link>
+	<web-panel location="someLoc" order="1000">
+		<template>asdasd/asd/a.vm</template>
+	</web-panel>
+	<web-panel location="somsseLoc" order="1000">
+		<template>asdasd/asd/b.vm</template>
+	</web-panel>
+</web-resource-service>

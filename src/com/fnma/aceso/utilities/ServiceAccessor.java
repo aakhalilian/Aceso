@@ -102,7 +102,7 @@ public class ServiceAccessor {
 			log.info("Resources saved. " + servletContext.getRealPath(RESOURCE_XML));
 		} catch (IOException e) {
 			e.printStackTrace();
-			log.info("Load resources error.");
+			log.info("Save resources error.");
 			log.error(e.getMessage());
 		}
 		ServiceAccessor.resourceService = resourceService;
