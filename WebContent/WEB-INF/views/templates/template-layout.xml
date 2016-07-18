@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout-map>
+	<web-link location="master.footer" order="525" blank="false">
+		<link>microsoft.com</link>
+		<title>link to Microsoft</title>
+		<label>Microsoft</label>
+	</web-link>
+	<web-link location="spmennnnloc" order="120" blank="false">
+		<link>gooooooogle.com</link>
+		<title>link to gonnnnogle</title>
+		<label>Gonogle</label>
+	</web-link>
+	<web-link location="spmennnnloc" order="120" blank="false">
+		<link>gooooooogle.com</link>
+		<title>link to gonnnnogle</title>
+		<label>Gonogle</label>
+	</web-link>
+	<web-panel location="master.header" order="1000">
+		<template>templates/index2.vm</template>
+	</web-panel>
+	<web-panel location="somsseLoc" order="1000">
+		<template>asdasd/asd/b.vm</template>
+	</web-panel>
+</layout-map>

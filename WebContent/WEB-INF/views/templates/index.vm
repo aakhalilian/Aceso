@@ -4,11 +4,5 @@ $message
 <br><br>
 $errors
 <br><br>
-$header
 
-#parse($header)
 
-<br><br>
-#foreach($file in $files)
-$file
-#end

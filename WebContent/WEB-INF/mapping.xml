@@ -123,7 +123,7 @@
 	</class>
 	
 	<class name="com.fnma.aceso.layout.service.LayoutMap">
-		<map-to xml="web-resource-service" />
+		<map-to xml="layout-map" />
 
 		<field name="links" type="com.fnma.aceso.layout.service.WebLink"
 			collection="arraylist">

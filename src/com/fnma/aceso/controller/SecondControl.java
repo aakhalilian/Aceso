@@ -40,11 +40,9 @@ public class SecondControl extends MainControl {
 	public String welcomePage(Model model) {
 		Logger log = logService.getLog();
 		log.info("GET request for /1 is received.");
-		dolayout();
 		model.addAttribute("resourceService", resourceService);
-		
-		model.addAttribute("header", "/WEB-INF/views/fragments/_header.vm");
-		
+		model.addAttribute("layoutService", layoutService);
+				
 		return "index";
 	}
 	
@@ -55,9 +53,9 @@ public class SecondControl extends MainControl {
 		
 		String name= request.getParameter("name");
 		model.addAttribute("resourceService", resourceService);
-			
+		model.addAttribute("layoutService", layoutService);
+		
 		model.addAttribute("message", "holla "+name);
-		model.addAttribute("header", "/WEB-INF/views/fragments/_footer.vm");
 		
 		return "index";
 	}

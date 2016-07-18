@@ -10,4 +10,8 @@ public class WebPanel extends WebItem {
 	public void setTemplate(String template) {
 		this.template = template;
 	}
+	
+	public String path(){
+		return LayoutService.ROOT+template;	
+	}
 }
